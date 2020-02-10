@@ -48,8 +48,6 @@ def gen_points_in_gdf_polys(geometry, values, points_per_value=None, seed=None):
     new_values = new_values[new_values > 0]
 
     data = new_values.to_frame(name="vals")
-    data.to_csv("data.csv")
-    geometry.to_file("geometry")
     g = gpd.GeoDataFrame(data=data, geometry=geometry)
 
     a = g.apply(
@@ -237,20 +235,22 @@ def gen_count_dot_density_map(
     all_points = gpd.GeoDataFrame(all_categories)
     all_points.plot(
         ax=ax,
-        markersize=0.01,
+        markersize=0.125,
         alpha=dot_transparency,
         column="field",
         categorical=True,
         legend=legend,
         cmap="Accent",
+        marker=",",
     )
 
     return ax
 
 
 fig, ax = plt.subplots(1, 1)
+plt.box(False)
 
 gen_count_dot_density_map("16001", pts_per_person=10, ax=ax)
 # plt.show()
-plt.savefig("one-person-one-dot.png", bbox_inches="tight", dpi=2000)
+plt.savefig("one-person-one-dot.png", bbox_inches="tight", dpi=5000)
 

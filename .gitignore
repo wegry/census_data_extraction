@@ -1,3 +1,4 @@
 lib
 bin
 *.pyc
+.DS_Store
